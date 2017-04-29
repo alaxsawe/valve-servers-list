@@ -21,7 +21,7 @@ if(logged_in() == true){
 }
 
 
-$settings = settings_data(1, 'title', 'vote_login_restriction', 'disable_index_querying', 'facebook', 'twitter', 'contact_email', 'pagination', 'register', 'show_offline_servers', 'server_cache', 'email_confirmation', 'server_confirmation', 'advertise_top', 'advertise_bottom');
+$settings = settings_data(1, 'url', 'title', 'vote_login_restriction', 'disable_index_querying', 'facebook', 'twitter', 'contact_email', 'pagination', 'register', 'show_offline_servers', 'server_cache', 'email_confirmation', 'server_confirmation', 'advertise_top', 'advertise_bottom');
 require 'functions/titles.php';
 
 /* Generate current GET parameters to prepend to the filters */

@@ -57,6 +57,7 @@ function change_password($user_id, $password) {
 
 function register_user($register_data) {
     global $database;
+    global $settings;
 
     array_walk($register_data, 'array_sanitize');
 	$register_data['password'] = md5($register_data['password']);
@@ -69,7 +70,7 @@ function register_user($register_data) {
 		sendmail($register_data['email'], 'Activate your account', "
 			Hello " . $register_data['name'] . ",\n\n
 			To activate your account, access the link below:\n\n
-			http://changeme.com/activate.php?email=" . $register_data['email'] . "&email_code=" . $register_data['email_code'] . " \n\n
+			" . $settings['url'] . "activate.php?email=" . $register_data['email'] . "&email_code=" . $register_data['email_code'] . " \n\n
 		");
 	}
 }
