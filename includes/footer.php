@@ -5,5 +5,5 @@
 <?php } ?>
 
 <div class="container">
-	<p class="muted credit">Script created by <a href="http://codecanyon.net/user/neeesteea">Fabian</a>, live check class by nr913.</p>
+	<p class="muted credit">created by <a href="http://grohsfabian.com">Grohs Fabian.</a></p>
 </div>

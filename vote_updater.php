@@ -11,7 +11,7 @@
 			$sid = (int)$_POST['sid'];
 			$ip = $_SERVER['REMOTE_ADDR'];
 			$time = time();
-			$dbTime = @mysql_result($database->query("SELECT `timestamp` FROM `votes` WHERE `server_id` = '$sid' AND `ip` = '$ip' ORDER BY `timestamp` DESC LIMIT 1"), 0);
+			$dbTime = @$database->query("SELECT `timestamp` FROM `votes` WHERE `server_id` = '$sid' AND `ip` = '$ip' ORDER BY `timestamp` DESC LIMIT 1")->fetch_object()->timestamp;
 			$timeDiff = $time - $dbTime;
 
 			if($timeDiff >= 86400){

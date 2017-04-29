@@ -7,7 +7,7 @@
 
 
     $query = "SELECT COUNT(*) as num FROM `servers` WHERE `disabled` = 0 {$offline_filter} {$game_filter} {$country_filter} {$map_filter}"; 
-    $total_pages = mysql_fetch_array($database->query($query)); 
+    $total_pages = $database->query($query)->fetch_assoc();
     $total_pages = $total_pages['num']; 
 
     $stages = 3; 

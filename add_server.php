@@ -26,7 +26,10 @@ if(isset($_POST['add_server'])) {
 	$game 	  = ($_POST['Description'] == "Counter-Strike: Source") ? "css" : $_POST['game'];
 	$country  = get_country($ip);
 	$disabled = ($settings['server_confirmation'] == '1') ? '1' : '0';
-	$database->query("INSERT INTO `servers` (`user_id`, `ip`, `port`, `game`, `disabled`, `vip`, `name`, `status`, `country`) VALUES ('$session_user_id', '$ip', '$port', '$game', '$disabled', 0, '$name', '1', '$country')");
+	$test = $database->query("INSERT INTO `servers` (`user_id`, `ip`, `port`, `game`, `disabled`, `vip`, `name`, `status`, `country`) VALUES ('$session_user_id', '$ip', '$port', '$game', '$disabled', 0, '$name', '1', '$country')");
+
+	echo "INSERT INTO `servers` (`user_id`, `ip`, `port`, `game`, `disabled`, `vip`, `name`, `status`, `country`) VALUES ('$session_user_id', '$ip', '$port', '$game', '$disabled', 0, '$name', '1', '$country')";
+
 	header('Location: add_server.php?success');
 	
 }

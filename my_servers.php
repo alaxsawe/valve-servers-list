@@ -31,8 +31,8 @@ if(isset($_GET['delete']) && !empty($_GET['delete'])){
 	}
 	
 } else {
-$disabled = mysql_result($database->query("SELECT COUNT(`user_id`) FROM `servers` WHERE `user_id` = ". $_SESSION['user_id'] . " AND `disabled` = 1"), 0);
-$active   = mysql_result($database->query("SELECT COUNT(`user_id`) FROM `servers` WHERE `user_id` = ". $_SESSION['user_id'] . " AND `disabled` = 0"), 0);
+$disabled = $database->query("SELECT COUNT(`user_id`) AS `count` FROM `servers` WHERE `user_id` = ". $_SESSION['user_id'] . " AND `disabled` = 1")->fetch_object()->count;
+$active   = $database->query("SELECT COUNT(`user_id`) AS `count` FROM `servers` WHERE `user_id` = ". $_SESSION['user_id'] . " AND `disabled` = 0")->fetch_object()->count;
 ?>	
 
 <p>I have a total of <?php echo $active; ?> active servers and <?php echo $disabled; ?> disabled servers added!</p>
@@ -54,7 +54,7 @@ $active   = mysql_result($database->query("SELECT COUNT(`user_id`) FROM `servers
 		<tbody>
 			<?php
 			$result  = $database->query("SELECT `id`, `user_id`, `ip`, `game`, `port`, `status`, `country`, `vip`, `name`, `votes`, `map`, `players`, `maxPlayers`, `cache_time` FROM `servers` WHERE `disabled` = 0 AND `user_id` = $session_user_id  ORDER BY `vip` DESC, `votes` DESC, `cache_time` ASC");
-			while ($server_data = mysql_fetch_array($result)) {
+			while ($server_data = $result->fetch_assoc()) {
 				$server_id = $server_data['id'];
 				$status    = $server_data['status'];
 			?>		

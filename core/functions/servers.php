@@ -1,13 +1,17 @@
 <?php
 function server_exists2($ip, $port) {
+    global $database;
+
 	$ip = sanitize($ip);
-	$query = $database->query("SELECT COUNT(`ip`) FROM `servers` WHERE `ip` = '$ip' AND `port` = '$port'");
-	return (mysql_result($query, 0) == 1) ? true : false;
+	$query = $database->query("SELECT COUNT(`ip`) AS `count` FROM `servers` WHERE `ip` = '$ip' AND `port` = '$port'");
+    return $query->fetch_object()->count;
 }
 function server_exists($ip) {
-	$ip = sanitize($ip);
-	$query = $database->query("SELECT COUNT(`ip`) FROM `servers` WHERE `ip` = '$ip'");
-	return (mysql_result($query, 0) == 1) ? true : false;
+    global $database;
+
+    $ip = sanitize($ip);
+	$query = $database->query("SELECT COUNT(`ip`) AS `count` FROM `servers` WHERE `ip` = '$ip'");
+	return $query->fetch_object()->count;
 }
 
 function get_country($ip) {
@@ -65,7 +69,7 @@ function id_to_user_id($id) {
 
 	$id = sanitize($id);
 	$query 	= $database->query("SELECT `user_id` FROM `servers` WHERE `id` = '$id'");
-	$data = mysql_fetch_assoc($query);
+	$data = $query->fetch_assoc();
 	return $data['user_id'];
 }
 

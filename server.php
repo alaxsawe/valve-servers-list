@@ -13,7 +13,7 @@ if(empty($_GET['id']) == true || $addedBy == false){
 }
 
 $result  = $database->query("SELECT `id`, `game`, `country`, `user_id`, `ip`, `port`, `vip`, `status`, `cache_time`, `votes` FROM `servers` WHERE `id` = '$server_id'");
-$server_data = mysql_fetch_array($result, MYSQL_ASSOC);
+$server_data = $result->fetch_assoc();
 
 $last_update = time() - $server_data['cache_time'];
 $last_updateM = intval($last_update/60);
@@ -184,12 +184,12 @@ if($status == 0){
 <h2>Comments</h2>
 <?php
 $query = $database->query("SELECT * FROM `comments` WHERE `server_id` = '$server_id'");
-if(mysql_num_rows($query) == false){
+if($query->num_rows){
 	echo "<p>This server doesn't have any comments added</p>";
 }
-while($row = mysql_fetch_array($query, MYSQL_ASSOC)){
+while($row = $query->fetch_assoc()){
 $comment_user_id  = $row['user_id'];
-@$comment_added_by = mysql_result($database->query("SELECT `username` FROM `users` WHERE `user_id` = '$comment_user_id'"), 0) ? mysql_result($database->query("SELECT `username` FROM `users` WHERE `user_id` = '$comment_user_id'"), 0) : "Unknown User";
+@$comment_added_by = $database->query("SELECT `username` FROM `users` WHERE `user_id` = '$comment_user_id'")->fetch_object()->username ? $database->query("SELECT `username` FROM `users` WHERE `user_id` = '$comment_user_id'")->fetch_object()->username : "Unknown User";
 ?>
 <table class="table table-bordered" style="background:white;">
 	<tr>

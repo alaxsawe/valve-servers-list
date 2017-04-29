@@ -7,7 +7,7 @@ if(isset($_GET['username']) == true && empty($_GET['username']) == false){
 	if(user_exists($username)){
 		$user_id      = user_id_from_username($username);
 		$profile_data = user_data($user_id, 'name', 'username', 'active', 'date', 'avatar');
-		$servers_added = mysql_result($database->query("SELECT COUNT(`user_id`) FROM `servers` WHERE `user_id` = '$user_id'"), 0);
+		$servers_added = $database->query("SELECT COUNT(`user_id`) AS `count` FROM `servers` WHERE `user_id` = '$user_id'")->fetch_object()->count;
 ?>
 		<h2><?php echo $profile_data['name']; ?>'s profile</h2>
 		<table>
@@ -55,7 +55,7 @@ if(isset($_GET['username']) == true && empty($_GET['username']) == false){
 				<tbody>
 					<?php
 					$result = $database->query("SELECT `id`, `user_id`, `ip`, `vip`, `disabled` FROM `servers` WHERE `user_id` = '$user_id' ORDER BY `user_id` DESC");
-					while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+					while ($row = $result->fetch_assoc()) {
 					$addedBy = username_from_user_id($row['user_id']);
 					$status  = $row['disabled'];
 					$vip 	 = $row['vip'];

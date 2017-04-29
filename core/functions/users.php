@@ -133,7 +133,7 @@ function user_id_from_username($username) {
 
 	$username = sanitize($username);
 	$query = $database->query("SELECT `user_id` FROM `users` WHERE `username` = '{$username}'");
-	return mysql_result($query, 0, 'user_id');
+	return $query->fetch_object()->user_id;
 }
 function username_from_user_id($user_id) {
     global $database;

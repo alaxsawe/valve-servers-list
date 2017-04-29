@@ -34,7 +34,7 @@ switch ($pageTitle) {
         if(isset($_GET['id']) && !empty($_GET['id'])){
 			$id 		= (INT)$_GET['id'];
 			$query 		= $database->query("SELECT `ip` FROM `servers` WHERE `id` = '$id'");
-			$fetch 		= mysql_fetch_array($query);
+			$fetch 		= $query->fetch_assoc();
 			$pageTitle 	= "Customize " . $fetch['ip'];
 			
 		} else {
@@ -48,7 +48,7 @@ switch ($pageTitle) {
 		if(isset($_GET['id']) && !empty($_GET['id'])){
 			$id 		= (INT)$_GET['id'];
 			$query 		= $database->query("SELECT `ip` FROM `servers` WHERE `id` = '$id'");
-			$fetch 		= mysql_fetch_array($query);
+			$fetch 		= $query->fetch_assoc();
 			$pageTitle 	= $fetch['ip'];
 			
 		} else {
@@ -68,7 +68,7 @@ switch ($pageTitle) {
 		if(isset($_GET['username']) && !empty($_GET['username'])){
 			$username	= sanitize($_GET['username']);
 			$query 		= $database->query("SELECT `name` FROM `users` WHERE `username` = '$username'");
-			$fetch 		= mysql_fetch_array($query);
+			$fetch 		= $query->fetch_assoc();
 			$pageTitle 	= $fetch['name']. "'s profile";
 			
 		} else {

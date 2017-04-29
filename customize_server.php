@@ -8,7 +8,7 @@ if(isset($_GET['id']) && !empty($_GET['id'])){
 	
 	$id 	= (INT)$_GET['id'];
 	$query 	= $database->query("SELECT `ip` FROM `servers` WHERE `id` = '$id'");
-	$fetch 	= mysql_fetch_array($query);
+	$fetch 	= $query->fetch_assoc();
 	$ip 	= $fetch['ip'];
 	
 	$domain = $_SERVER['HTTP_HOST'];
