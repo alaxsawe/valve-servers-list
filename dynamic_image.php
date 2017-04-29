@@ -11,14 +11,13 @@
 // GET THE SERVER DETAILS AND PREPARE IT FOR DISPLAY
 
 	$s      = (INT)$_GET['s'];
-	$query  = $database->query("SELECT COUNT(`id`) FROM `servers` WHERE `id` = '$s'");
-	$result = mysql_result($query, 0);
-	if ($result == 0) {
+	$query  = $database->query("SELECT COUNT(`id`) AS `count` FROM `servers` WHERE `id` = '$s'")->fetch_object()->count;
+	if (!$query) {
 		exit("This server doesn't exist!");
 	}
-	$$database->query  = "SELECT `ip`, `port`, `status`, `game`, `name`, `disabled`, `map`, `players`, `maxPlayers` FROM `servers` WHERE `id` = '$s'";
-    $mysql_result = $database->query($$database->query) or die(mysql_error());
-    $mysql_row    = mysql_fetch_array($mysql_result, MYSQL_ASSOC);
+	$query  = "SELECT `ip`, `port`, `status`, `game`, `name`, `disabled`, `map`, `players`, `maxPlayers` FROM `servers` WHERE `id` = '$s'";
+    $mysql_result = $database->query($query) or die('error');
+    $mysql_row    = $mysql_result->fetch_assoc();
 
 	if($mysql_row['disabled'] == 1){
 		exit("This server is deactivated!");
